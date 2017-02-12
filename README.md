@@ -33,6 +33,7 @@ Here's a walkthrough of implemented user stories:
 
 <img src='gifs/required.gif' title='Required Functionality Demo' width='' alt='Required Functionality Demo' />
 <img src='gifs/optionals1.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
+<img src='gifs/optionals2.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
