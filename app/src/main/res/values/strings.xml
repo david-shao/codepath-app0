@@ -6,4 +6,5 @@
     <string name="todoItem">ToDo</string>
     <string name="dueDate">Set Due Date</string>
     <string name="dueDatePrefix">Due:</string>
+    <string name="edit_item_frag_title">Edit</string>
 </resources>

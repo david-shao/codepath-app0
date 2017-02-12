@@ -19,7 +19,7 @@ The following **optional** features are implemented:
 * [X] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
 * [X] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
 * [X] Add support for completion due dates for todo items (and display within listview item)
-* [ ] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
+* [X] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
 * [ ] Add support for selecting the priority of each todo item (and display in listview item)
 * [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
@@ -42,6 +42,10 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 Figuring out how to see content in the File Explorer in Android Device Monitor required some research. Apparently
 when using a virtual device with API 25 it doesn't show anything. I had to change the device to use API 23 for it
 to work properly.
+I had a lot of trouble modifying table columns after I started using FlowDB and decided to update my TodoItem model.
+I tried using migrations but couldn't get it to work. Eventually decided it was faster to simply uninstall the app
+and start with fresh database every time I had to change the model, though I realize this would not work for an app
+that's live in production.
 
 ## License
 

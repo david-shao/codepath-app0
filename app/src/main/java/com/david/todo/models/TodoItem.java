@@ -24,6 +24,8 @@ public class TodoItem extends BaseModel implements Serializable {
     @Column
     private Date dueDate;
 
+    
+
     /**
      * Getters and Setters
      */
