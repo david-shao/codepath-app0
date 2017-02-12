@@ -1,9 +1,10 @@
 package com.david.todo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 /**
@@ -23,6 +24,12 @@ public class EditItemActivity extends AppCompatActivity {
         position = getIntent().getIntExtra("pos", 0);
         etEditItem = (EditText) findViewById(R.id.etEditItem);
         etEditItem.setText(text);
+
+        //set cursor to end
+        etEditItem.setSelection(text.length());
+
+        //show keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     /**

@@ -20,7 +20,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true" >
+
+        <requestFocus />
+    </EditText>
 
     <Button
         android:text="@string/save"

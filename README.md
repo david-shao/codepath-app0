@@ -4,7 +4,7 @@ ToDo is an android app that allows building a todo list and basic todo items man
 
 Submitted by: David Zhuohao Shao
 
-Time spent: 5 hours spent in total
+Time spent: 6 hours spent in total
 
 ## User Stories
 
@@ -32,6 +32,7 @@ The following **additional** features are implemented:
 Here's a walkthrough of implemented user stories:
 
 <img src='gifs/required.gif' title='Required Functionality Demo' width='' alt='Required Functionality Demo' />
+<img src='gifs/optionals1.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
