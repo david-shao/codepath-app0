@@ -9,26 +9,38 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.david.todo.models.TodoItem;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     //Request code for editing item
     private final int REQUEST_CODE = 20;
 
-    private ArrayList<String> todoItems;
-    private ArrayAdapter<String> aToDoAdapter;
+    private List<TodoItem> todoItems;
+    private ArrayAdapter<TodoItem> aToDoAdapter;
     private ListView lvItems;
     private EditText etEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // This instantiates DBFlow
+        FlowManager.init(new FlowConfig.Builder(this).build());
+        // add for verbose logging
+        // FlowLog.setMinimumLoggingLevel(FlowLog.Level.V);
+
         setContentView(R.layout.activity_main);
         populateArrayItems();
         lvItems = (ListView) findViewById(R.id.lvItems);
@@ -37,21 +49,20 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                todoItems.remove(position);
+                TodoItem item = todoItems.remove(position);
                 aToDoAdapter.notifyDataSetChanged();
-                writeItems();
+                item.delete();
                 return true;
             }
         });
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String text = todoItems.get(position);
+                String text = todoItems.get(position).toString();
                 Intent i = new Intent(MainActivity.this, EditItemActivity.class);
                 i.putExtra("text", text);
                 i.putExtra("pos", position);
                 startActivityForResult(i, REQUEST_CODE);
-                String test = "";
             }
         });
     }
@@ -67,9 +78,10 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             String text = data.getExtras().getString("text");
             int pos = data.getExtras().getInt("pos", 0);
-            todoItems.set(pos, text);
+            TodoItem item = todoItems.get(pos);
+            item.setText(text);
             aToDoAdapter.notifyDataSetChanged();
-            writeItems();
+            item.save();
         }
     }
 
@@ -77,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
      * Populate initial list of items.
      */
     public void populateArrayItems() {
-        readItems();
-        aToDoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, todoItems);
+        readFromDb();
+        aToDoAdapter = new ArrayAdapter<TodoItem>(this, android.R.layout.simple_list_item_1, todoItems);
     }
 
     /**
@@ -86,24 +98,35 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void onAddItem(View view) {
-        aToDoAdapter.add(etEditText.getText().toString());
+        TodoItem newItem = new TodoItem();
+        newItem.setText(etEditText.getText().toString());
+        aToDoAdapter.add(newItem);
         etEditText.setText("");
-        writeItems();
+        newItem.save();
+    }
+
+    /**
+     * Helper function to query db and populate list.
+     */
+    private void readFromDb() {
+        todoItems = SQLite.select().
+                from(TodoItem.class).
+                queryList();
     }
 
     /**
      * Helper function to read items from file.
      */
     private void readItems() {
-        File filesDir = getFilesDir();
-        File file = new File(filesDir, "todo.txt");
-        try {
-            todoItems = new ArrayList<String>(FileUtils.readLines(file));
-        } catch (FileNotFoundException e) {
-            todoItems = new ArrayList<String>();
-        } catch (IOException e) {
-
-        }
+//        File filesDir = getFilesDir();
+//        File file = new File(filesDir, "todo.txt");
+//        try {
+//            todoItems = new ArrayList<String>(FileUtils.readLines(file));
+//        } catch (FileNotFoundException e) {
+//            todoItems = new ArrayList<String>();
+//        } catch (IOException e) {
+//
+//        }
     }
 
     /**
