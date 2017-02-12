@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.david.todo.adapters.TodoItemsAdapter;
 import com.david.todo.models.TodoItem;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CODE = 20;
 
     private List<TodoItem> todoItems;
-    private ArrayAdapter<TodoItem> aToDoAdapter;
+    private TodoItemsAdapter aToDoAdapter;
     private ListView lvItems;
     private EditText etEditText;
 
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void populateArrayItems() {
         readFromDb();
-        aToDoAdapter = new ArrayAdapter<TodoItem>(this, android.R.layout.simple_list_item_1, todoItems);
+        aToDoAdapter = new TodoItemsAdapter(this, todoItems);
     }
 
     /**
