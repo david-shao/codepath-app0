@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.david.todo.R;
 import com.david.todo.models.TodoItem;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +22,7 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
     // View lookup cache
     private static class ViewHolder {
         TextView tvText;
+        TextView tvDueDate;
     }
 
     public TodoItemsAdapter(Context context, List<TodoItem> todoItems) {
@@ -37,6 +40,7 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         TodoItem todoItem = getItem(position);
+
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
         if (convertView == null) {
@@ -45,14 +49,25 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_todo, parent, false);
             // Lookup view for data population
             viewHolder.tvText = (TextView) convertView.findViewById(R.id.tvText);
+            viewHolder.tvDueDate = (TextView) convertView.findViewById(R.id.tvDueDate);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
             // View is being recycled, retrieve the viewHolder object from tag
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
         // Populate the data into the template view using the data object
         viewHolder.tvText.setText(todoItem.getText());
+        Date dueDate = todoItem.getDueDate();
+        if (dueDate != null) {
+            DateFormat df = DateFormat.getDateInstance();
+            String dateStr = getContext().getResources().getText(R.string.dueDatePrefix) + " " + df.format(dueDate);
+            viewHolder.tvDueDate.setText(dateStr);
+        } else {
+            viewHolder.tvDueDate.setText("");
+        }
+
         // Return the completed view to render on screen
         return convertView;
     }

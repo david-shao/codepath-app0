@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.david.todo.adapters.TodoItemsAdapter;
 import com.david.todo.models.TodoItem;
+import com.facebook.stetho.Stetho;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Stetho debug tool setup
+        Stetho.initializeWithDefaults(this);
 
         // This instantiates DBFlow
         FlowManager.init(new FlowConfig.Builder(this).build());
@@ -56,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String text = todoItems.get(position).toString();
+                TodoItem todoItem = todoItems.get(position);
                 Intent i = new Intent(MainActivity.this, EditItemActivity.class);
-                i.putExtra("text", text);
+                i.putExtra("todoItem", todoItem);
                 i.putExtra("pos", position);
                 startActivityForResult(i, REQUEST_CODE);
             }
@@ -74,12 +77,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            String text = data.getExtras().getString("text");
             int pos = data.getExtras().getInt("pos", 0);
-            TodoItem item = todoItems.get(pos);
-            item.setText(text);
+            TodoItem modified = (TodoItem) data.getSerializableExtra("todoItem");
+            todoItems.set(pos, modified);
             aToDoAdapter.notifyDataSetChanged();
-            item.save();
+            modified.save();
         }
     }
 

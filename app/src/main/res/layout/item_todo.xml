@@ -10,4 +10,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvText"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDueDate" />
+
 </LinearLayout>

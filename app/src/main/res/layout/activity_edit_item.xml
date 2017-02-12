@@ -30,9 +30,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnEditItem"
-        android:layout_marginTop="98dp"
+        android:onClick="onSave"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/dueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/etEditItem"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="onSave" />
+        android:layout_marginTop="8dp"
+        android:id="@+id/tvDueDate" />
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dpDueDate"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
