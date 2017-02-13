@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.david.todo.R;
 import com.david.todo.models.TodoItem;
+import com.david.todo.utils.StyleUtil;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -23,6 +24,7 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
     private static class ViewHolder {
         TextView tvText;
         TextView tvDueDate;
+        TextView tvPriority;
     }
 
     public TodoItemsAdapter(Context context, List<TodoItem> todoItems) {
@@ -50,6 +52,7 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
             // Lookup view for data population
             viewHolder.tvText = (TextView) convertView.findViewById(R.id.tvText);
             viewHolder.tvDueDate = (TextView) convertView.findViewById(R.id.tvDueDate);
+            viewHolder.tvPriority = (TextView) convertView.findViewById(R.id.tvPriority);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -62,13 +65,28 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
         Date dueDate = todoItem.getDueDate();
         if (dueDate != null) {
             DateFormat df = DateFormat.getDateInstance();
-            String dateStr = getContext().getResources().getText(R.string.dueDatePrefix) + " " + df.format(dueDate);
+            String dateStr = getContext().getResources().getString(R.string.due_date_prefix) + " " + df.format(dueDate);
             viewHolder.tvDueDate.setText(dateStr);
         } else {
             viewHolder.tvDueDate.setText("");
         }
+        CharSequence priorityTxt = todoItem.getPriorityStr(getContext().getResources());
+        switch (todoItem.getPriority()) {
+            case HIGH:
+                priorityTxt = StyleUtil.applyColor(priorityTxt, getContext().getResources().getColor(R.color.highPriority));
+                break;
+            case MEDIUM:
+                priorityTxt = StyleUtil.applyColor(priorityTxt, getContext().getResources().getColor(R.color.medPriority));
+                break;
+            case LOW:
+                priorityTxt = StyleUtil.applyColor(priorityTxt, getContext().getResources().getColor(R.color.lowPriority));
+                break;
+        }
+        viewHolder.tvPriority.setText(priorityTxt);
 
         // Return the completed view to render on screen
         return convertView;
     }
+
+
 }

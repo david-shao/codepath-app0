@@ -36,7 +36,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="@string/dueDate"
+        android:text="@string/due_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etEditItem"

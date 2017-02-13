@@ -1,19 +1,21 @@
 package com.david.todo.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.david.todo.R;
 import com.david.todo.models.TodoItem;
+import com.david.todo.utils.StyleUtil;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,11 +24,12 @@ import java.util.Date;
  * Created by David on 2/12/2017.
  */
 
-public class EditItemFragment extends DialogFragment implements View.OnClickListener {
+public class EditItemFragment extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private int position;
     private TodoItem todoItem;
     private EditText etEditItem;
     private DatePicker dpDueDate;
+    private Spinner spPriority;
 
     public EditItemFragment() {
         //Needs to be empty
@@ -82,6 +85,18 @@ public class EditItemFragment extends DialogFragment implements View.OnClickList
             }
         });
 
+        //initialize spinner
+        spPriority = (Spinner) view.findViewById(R.id.spPriority);
+        CharSequence[] priorities = new CharSequence[] {
+                StyleUtil.applyColor(getResources().getText(R.string.priority_high), getResources().getColor(R.color.highPriority)),
+                StyleUtil.applyColor(getResources().getText(R.string.priority_medium), getResources().getColor(R.color.medPriority)),
+                StyleUtil.applyColor(getResources().getText(R.string.priority_low), getResources().getColor(R.color.lowPriority)),
+        };
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getContext(), android.R.layout.simple_spinner_dropdown_item, priorities);
+        spPriority.setAdapter(adapter);
+        spPriority.setSelection(todoItem.getPriority().getValue());
+        spPriority.setOnItemSelectedListener(this);
+
         //set cursor to end
         etEditItem.setSelection(todoItem.getText().length());
 
@@ -103,5 +118,25 @@ public class EditItemFragment extends DialogFragment implements View.OnClickList
         listener.onSave(position, todoItem);
         //close dialog fragment
         dismiss();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+        switch (position) {
+            case 0:
+                todoItem.setPriority(TodoItem.Priority.HIGH);
+                break;
+            case 1:
+                todoItem.setPriority(TodoItem.Priority.MEDIUM);
+                break;
+            case 2:
+                todoItem.setPriority(TodoItem.Priority.LOW);
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        //do nothing
     }
 }
