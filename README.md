@@ -39,7 +39,7 @@ With SQLite and Custom Adapter for ListView:
 
 <img src='gifs/optionals1.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
-With due date support:
+With due date support and using a DialogFragment for editing:
 
 <img src='gifs/optionals2.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
