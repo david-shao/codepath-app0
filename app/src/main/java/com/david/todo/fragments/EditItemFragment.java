@@ -3,32 +3,33 @@ package com.david.todo.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.david.todo.R;
 import com.david.todo.models.TodoItem;
 import com.david.todo.utils.StyleUtil;
 
-import java.util.Calendar;
+import java.text.DateFormat;
 import java.util.Date;
 
 /**
  * Created by David on 2/12/2017.
  */
 
-public class EditItemFragment extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class EditItemFragment extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, DatePickerFragment.DatePickerDialogListener {
     private int position;
     private TodoItem todoItem;
     private EditText etEditItem;
-    private DatePicker dpDueDate;
+    private TextView tvDate;
     private Spinner spPriority;
 
     public EditItemFragment() {
@@ -69,19 +70,22 @@ public class EditItemFragment extends DialogFragment implements View.OnClickList
         etEditItem = (EditText) view.findViewById(R.id.etEditItem);
         etEditItem.setText(todoItem.getText());
 
-        //initialize date picker
-        dpDueDate = (DatePicker) view.findViewById(R.id.dpDueDate);
-        Calendar calendar = Calendar.getInstance();
+        //initialize due date
+        tvDate = (TextView) view.findViewById(R.id.tvDate);
         Date dueDate = todoItem.getDueDate();
         if (dueDate != null) {
-            calendar.setTime(dueDate);
+            tvDate.setText(DateFormat.getDateInstance().format(dueDate));
+        } else {
+            tvDate.setText(getResources().getString(R.string.due_date_none));
         }
-        dpDueDate.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+
+        tvDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, monthOfYear, dayOfMonth);
-                todoItem.setDueDate(calendar.getTime());
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(todoItem.getDueDate());
+                datePickerFragment.setTargetFragment(EditItemFragment.this, 300);
+                datePickerFragment.show(fm, "fragment_date_picker");
             }
         });
 
@@ -120,6 +124,13 @@ public class EditItemFragment extends DialogFragment implements View.OnClickList
         dismiss();
     }
 
+    /**
+     * Handlers for priority dropdown.
+     * @param parent
+     * @param v
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
         switch (position) {
@@ -134,9 +145,19 @@ public class EditItemFragment extends DialogFragment implements View.OnClickList
                 break;
         }
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         //do nothing
     }
+
+    /**
+     * Callback for when date picker is closed.
+     * @param date
+     */
+    @Override
+    public void onDateSelected(Date date) {
+        todoItem.setDueDate(date);
+        tvDate.setText(DateFormat.getDateInstance().format(date));
+    }
+
 }

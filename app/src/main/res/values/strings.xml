@@ -4,11 +4,13 @@
     <string name="add_item">Add a new item...</string>
     <string name="save">Save</string>
     <string name="todo_item">ToDo</string>
-    <string name="due_date">Set Due Date</string>
+    <string name="due_date">Due Date</string>
     <string name="due_date_prefix">Due:</string>
     <string name="edit_item_frag_title">Edit</string>
     <string name="priority_high">High</string>
     <string name="priority_medium">Medium</string>
     <string name="priority_low">Low</string>
-    <string name="set_priority">Set Priority</string>
+    <string name="set_priority">Priority</string>
+    <string name="date_picker_frag_title">Select Date</string>
+    <string name="due_date_none">No Due Date</string>
 </resources>

@@ -25,29 +25,32 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [X] Move Date Picker to its own dialog fragment
+* [ ] Sort ListView based on priority automatically
+* [ ] Pressing enter adds item automatically
+- [ ] Add custom sorting (priority, due date, alphebetical)
 
 ## Video Walkthrough 
 
-Here's a walkthrough of implemented user stories:
-
-Basic:
-
-<img src='gifs/required.gif' title='Required Functionality Demo' width='' alt='Required Functionality Demo' />
-
-With SQLite and Custom Adapter for ListView:
-
-<img src='gifs/optionals1.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
-
-With due date support:
-
-<img src='gifs/optionals2.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
+Here's a walkthrough of implemented user stories (in reverse chronological order):
 
 With priority support and using a DialogFragment for editing:
 
 <img src='gifs/optionals3.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+With due date support:
+
+<img src='gifs/optionals2.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
+
+With SQLite and Custom Adapter for ListView:
+
+<img src='gifs/optionals1.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
+
+Basic:
+
+<img src='gifs/required.gif' title='Required Functionality Demo' width='' alt='Required Functionality Demo' />
+
+GIFs created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
@@ -61,7 +64,7 @@ that's live in production.
 
 ## License
 
-    Copyright [2017] [David Zhuohao Shao]
+    Copyright 2017 David Zhuohao Shao
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

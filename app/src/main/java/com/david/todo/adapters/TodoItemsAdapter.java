@@ -65,7 +65,11 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
         Date dueDate = todoItem.getDueDate();
         if (dueDate != null) {
             DateFormat df = DateFormat.getDateInstance();
-            String dateStr = getContext().getResources().getString(R.string.due_date_prefix) + " " + df.format(dueDate);
+            CharSequence dateStr = getContext().getResources().getString(R.string.due_date_prefix) + " " + df.format(dueDate);
+            if (dueDate.before(new Date())) {
+                //if past due date, set to high priority color
+                dateStr = StyleUtil.applyColor(dateStr, getContext().getResources().getColor(R.color.highPriority));
+            }
             viewHolder.tvDueDate.setText(dateStr);
         } else {
             viewHolder.tvDueDate.setText("");
