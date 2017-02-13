@@ -6,4 +6,6 @@
     <color name="highPriority">#DF4141</color>
     <color name="medPriority">#F5DF32</color>
     <color name="lowPriority">#5DD55F</color>
+    <color name="darkGray">#A4A4A4</color>
+    <color name="lightGray">#D8D8D8</color>
 </resources>

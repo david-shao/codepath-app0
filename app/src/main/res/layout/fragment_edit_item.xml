@@ -54,17 +54,6 @@
         android:layout_alignRight="@+id/tvDate"
         android:layout_alignEnd="@+id/tvDate" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spPriority"
-        android:layout_marginTop="6dp"
-        android:layout_below="@+id/tvPriority"
-        android:layout_alignLeft="@+id/tvPriority"
-        android:layout_alignStart="@+id/tvPriority"
-        android:layout_alignRight="@+id/tvDate"
-        android:layout_alignEnd="@+id/tvDate" />
-
     <Button
         android:text="@string/save"
         android:layout_width="wrap_content"
@@ -76,6 +65,17 @@
         android:layout_below="@+id/spPriority"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spPriority"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/tvPriority"
+        android:layout_alignLeft="@+id/tvPriority"
+        android:layout_alignStart="@+id/tvPriority"
+        android:layout_alignRight="@+id/tvPriority"
+        android:layout_alignEnd="@+id/tvPriority" />
 
 
 </RelativeLayout>
