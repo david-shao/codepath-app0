@@ -32,15 +32,19 @@ The following **additional** features are implemented:
 Here's a walkthrough of implemented user stories:
 
 Basic:
+
 <img src='gifs/required.gif' title='Required Functionality Demo' width='' alt='Required Functionality Demo' />
 
 With SQLite and Custom Adapter for ListView:
+
 <img src='gifs/optionals1.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
 With due date support:
+
 <img src='gifs/optionals2.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
 With priority support:
+
 <img src='gifs/optionals3.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
