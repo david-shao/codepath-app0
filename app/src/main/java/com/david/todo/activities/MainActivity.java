@@ -1,14 +1,19 @@
-package com.david.todo;
+package com.david.todo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.david.todo.R;
 import com.david.todo.adapters.TodoItemsAdapter;
 import com.david.todo.fragments.EditItemFragment;
 import com.david.todo.models.TodoItem;
@@ -72,6 +77,18 @@ public class MainActivity extends AppCompatActivity implements EditItemFragment.
                 FragmentManager fm = getSupportFragmentManager();
                 EditItemFragment editItemFragment = EditItemFragment.newInstance(position, todoItem);
                 editItemFragment.show(fm, "fragment_edit_item");
+            }
+        });
+
+        //set enter key listener
+        etEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    onAddItem(v);
+                    return true;
+                }
+                return false;
             }
         });
     }

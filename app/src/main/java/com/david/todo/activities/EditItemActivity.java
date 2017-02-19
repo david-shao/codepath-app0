@@ -1,4 +1,4 @@
-package com.david.todo;
+package com.david.todo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.david.todo.R;
 import com.david.todo.models.TodoItem;
 
 import java.util.Calendar;

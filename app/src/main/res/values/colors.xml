@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="highPriority">#DF4141</color>
-    <color name="medPriority">#F5DF32</color>
-    <color name="lowPriority">#5DD55F</color>
-    <color name="darkGray">#A4A4A4</color>
-    <color name="lightGray">#D8D8D8</color>
+    <color name="colorAccent">#FED462</color>
+    <color name="highPriority">#F44336</color>
+    <color name="medPriority">#FFC107</color>
+    <color name="lowPriority">#4CAF50</color>
+    <color name="shadow">#9E9E9E</color>
+    <color name="itemBackground">#FAFAFA</color>
+    <color name="mainBackground">#4CA7E5</color>
 </resources>

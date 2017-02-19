@@ -1,10 +1,13 @@
 package com.david.todo.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.david.todo.R;
@@ -25,6 +28,7 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
         TextView tvText;
         TextView tvDueDate;
         TextView tvPriority;
+        CheckBox cbCompleted;
     }
 
     public TodoItemsAdapter(Context context, List<TodoItem> todoItems) {
@@ -53,6 +57,7 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
             viewHolder.tvText = (TextView) convertView.findViewById(R.id.tvText);
             viewHolder.tvDueDate = (TextView) convertView.findViewById(R.id.tvDueDate);
             viewHolder.tvPriority = (TextView) convertView.findViewById(R.id.tvPriority);
+            viewHolder.cbCompleted = (CheckBox) convertView.findViewById(R.id.cbCompleted);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -87,6 +92,49 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
                 break;
         }
         viewHolder.tvPriority.setText(priorityTxt);
+
+        //set strike through and checked
+        if (todoItem.isCompleted()) {
+            viewHolder.tvText.setPaintFlags(viewHolder.tvText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            viewHolder.tvDueDate.setPaintFlags(viewHolder.tvDueDate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            viewHolder.tvPriority.setPaintFlags(viewHolder.tvPriority.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            viewHolder.cbCompleted.setChecked(true);
+        } else {
+            viewHolder.tvText.setPaintFlags(viewHolder.tvText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            viewHolder.tvDueDate.setPaintFlags(viewHolder.tvDueDate.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            viewHolder.tvPriority.setPaintFlags(viewHolder.tvPriority.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            viewHolder.cbCompleted.setChecked(false);
+        }
+
+        //set tags for the checkbox so it can access them in event handler
+        viewHolder.cbCompleted.setTag(R.id.tvText, viewHolder.tvText);
+        viewHolder.cbCompleted.setTag(R.id.tvDueDate, viewHolder.tvDueDate);
+        viewHolder.cbCompleted.setTag(R.id.tvPriority, viewHolder.tvPriority);
+        viewHolder.cbCompleted.setTag(position);
+
+        //attach click handler for checkbox
+        viewHolder.cbCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                TextView tvText = (TextView) buttonView.getTag(R.id.tvText);
+                TextView tvDueDate = (TextView) buttonView.getTag(R.id.tvDueDate);
+                TextView tvPriority = (TextView) buttonView.getTag(R.id.tvPriority);
+                int position = (Integer) buttonView.getTag();
+                TodoItem todoItem = getItem(position);
+                if (isChecked) {
+                    tvText.setPaintFlags(tvText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    tvDueDate.setPaintFlags(tvDueDate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    tvPriority.setPaintFlags(tvPriority.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    todoItem.setCompleted(true);
+                } else {
+                    tvText.setPaintFlags(tvText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    tvDueDate.setPaintFlags(tvDueDate.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    tvPriority.setPaintFlags(tvPriority.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    todoItem.setCompleted(false);
+                }
+                todoItem.save();
+            }
+        });
 
         // Return the completed view to render on screen
         return convertView;

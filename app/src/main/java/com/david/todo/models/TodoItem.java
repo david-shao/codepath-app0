@@ -44,6 +44,9 @@ public class TodoItem extends BaseModel implements Serializable {
     @Column
     private Priority priority;
 
+    @Column
+    private boolean completed;
+
     /**
      * Constructor.
      */
@@ -77,6 +80,12 @@ public class TodoItem extends BaseModel implements Serializable {
     }
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+    public boolean isCompleted() {
+        return completed;
+    }
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     @Override
