@@ -11,7 +11,15 @@
 
     <!-- Dialog theme -->
     <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:background">@color/mainBackground</item>
+        <item name="android:background">@color/itemBackground</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CheckBoxTheme" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">@color/checkBox</item>
+        <item name="android:textColorSecondary">@color/checkBox</item>
     </style>
 
 </resources>

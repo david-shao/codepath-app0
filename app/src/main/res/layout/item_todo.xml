@@ -14,6 +14,7 @@
         android:layout_marginStart="5dp"
         android:layout_alignBottom="@+id/tvDueDate"
         android:layout_alignTop="@+id/tvText"
+        android:theme="@style/CheckBoxTheme"
         android:focusable="false" />
 
     <TextView

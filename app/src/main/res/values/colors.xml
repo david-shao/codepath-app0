@@ -2,11 +2,15 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FED462</color>
+    <color name="colorAccent">#9AC7E5</color>
     <color name="highPriority">#F44336</color>
     <color name="medPriority">#FFC107</color>
     <color name="lowPriority">#4CAF50</color>
     <color name="shadow">#9E9E9E</color>
     <color name="itemBackground">#FAFAFA</color>
     <color name="mainBackground">#4CA7E5</color>
+    <color name="buttonColor">#FED462</color>
+    <color name="checkBox">#8F8F9C</color>
+    <color name="whiteText">#FBFCFD</color>
+    <color name="buttonText">#20263B</color>
 </resources>

@@ -2,21 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:theme="@style/AppDialogTheme"
+    android:padding="10dp"
     android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
         android:ems="10"
-        android:layout_marginTop="11dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:id="@+id/tvDate"
-        android:layout_below="@+id/tvDueDate"
-        android:layout_alignLeft="@+id/tvDueDate"
-        android:layout_alignStart="@+id/tvDueDate"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:layout_alignRight="@+id/etEditItem"
-        android:layout_alignEnd="@+id/etEditItem" />
+        android:layout_alignTop="@+id/tvDueDate"
+        android:layout_toRightOf="@+id/tvDueDate"
+        android:layout_toEndOf="@+id/tvDueDate"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/tvDueDate" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -24,10 +27,11 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/etEditItem"
-        android:layout_marginTop="12dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/btnSaveItem"
-        android:layout_alignStart="@+id/btnSaveItem">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <requestFocus />
     </EditText>
@@ -36,33 +40,9 @@
         android:text="@string/due_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/tvDueDate"
         android:layout_below="@+id/etEditItem"
-        android:layout_alignLeft="@+id/etEditItem"
-        android:layout_alignStart="@+id/etEditItem" />
-
-    <TextView
-        android:text="@string/set_priority"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvPriority"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/tvDate"
-        android:layout_alignLeft="@+id/tvDate"
-        android:layout_alignStart="@+id/tvDate"
-        android:layout_alignRight="@+id/tvDate"
-        android:layout_alignEnd="@+id/tvDate" />
-
-    <Button
-        android:text="@string/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnSaveItem"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="43dp"
-        android:layout_below="@+id/spPriority"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -70,12 +50,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spPriority"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/tvPriority"
-        android:layout_alignLeft="@+id/tvPriority"
-        android:layout_alignStart="@+id/tvPriority"
-        android:layout_alignRight="@+id/tvPriority"
-        android:layout_alignEnd="@+id/tvPriority" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_alignTop="@+id/tvPriority"
+        android:layout_toRightOf="@+id/tvPriority"
+        android:layout_toEndOf="@+id/tvPriority"
+        android:layout_alignBottom="@+id/tvPriority"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="@string/set_priority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPriority"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tvDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/tvDate"
+        android:layout_toStartOf="@+id/tvDate" />
+
+    <Button
+        android:text="@string/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSaveItem"
+        android:background="@drawable/button"
+        android:textColor="@color/buttonText"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/spPriority"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
