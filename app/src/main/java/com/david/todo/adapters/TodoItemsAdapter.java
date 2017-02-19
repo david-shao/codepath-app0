@@ -93,6 +93,13 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
         }
         viewHolder.tvPriority.setText(priorityTxt);
 
+        //set tags for the checkbox so it can access them in event handler
+        //note: need to set these tags before calling setChecked on the checkbox, because the onCheckedChanged event would fire!
+        viewHolder.cbCompleted.setTag(R.id.tvText, viewHolder.tvText);
+        viewHolder.cbCompleted.setTag(R.id.tvDueDate, viewHolder.tvDueDate);
+        viewHolder.cbCompleted.setTag(R.id.tvPriority, viewHolder.tvPriority);
+        viewHolder.cbCompleted.setTag(position);
+
         //set strike through and checked
         if (todoItem.isCompleted()) {
             viewHolder.tvText.setPaintFlags(viewHolder.tvText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -106,12 +113,6 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
             viewHolder.cbCompleted.setChecked(false);
         }
 
-        //set tags for the checkbox so it can access them in event handler
-        viewHolder.cbCompleted.setTag(R.id.tvText, viewHolder.tvText);
-        viewHolder.cbCompleted.setTag(R.id.tvDueDate, viewHolder.tvDueDate);
-        viewHolder.cbCompleted.setTag(R.id.tvPriority, viewHolder.tvPriority);
-        viewHolder.cbCompleted.setTag(position);
-
         //attach click handler for checkbox
         viewHolder.cbCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -121,18 +122,19 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
                 TextView tvPriority = (TextView) buttonView.getTag(R.id.tvPriority);
                 int position = (Integer) buttonView.getTag();
                 TodoItem todoItem = getItem(position);
-                if (isChecked) {
+                if (isChecked && !todoItem.isCompleted()) {
                     tvText.setPaintFlags(tvText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     tvDueDate.setPaintFlags(tvDueDate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     tvPriority.setPaintFlags(tvPriority.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     todoItem.setCompleted(true);
-                } else {
+                    todoItem.save();
+                } else if (!isChecked && todoItem.isCompleted()){
                     tvText.setPaintFlags(tvText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                     tvDueDate.setPaintFlags(tvDueDate.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                     tvPriority.setPaintFlags(tvPriority.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                     todoItem.setCompleted(false);
+                    todoItem.save();
                 }
-                todoItem.save();
             }
         });
 
