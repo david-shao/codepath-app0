@@ -13,4 +13,9 @@
     <string name="set_priority">Priority</string>
     <string name="date_picker_frag_title">Select Date</string>
     <string name="due_date_none">No Due Date</string>
+    <string name="sort_priority">Sort By Priority</string>
+    <string name="sort_due_date">Sort By Due Date</string>
+    <string name="sort_alphabetical">Sort Alphabetically</string>
+    <string name="sort_creation">Sort By Date Added</string>
 </resources>
+

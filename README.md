@@ -4,7 +4,7 @@ ToDo is an android app that allows building a todo list and basic todo items man
 
 Submitted by: David Zhuohao Shao
 
-Time spent: 17 hours spent in total
+Time spent: 19 hours spent in total
 
 ## User Stories
 
@@ -28,12 +28,15 @@ The following **additional** features are implemented:
 * [X] Move Date Picker to its own dialog fragment
 * [X] Pressing enter adds item automatically
 * [X] Add checkbox to each item, checking it crosses out text
-* [ ] Sort ListView based on priority automatically
-* [ ] Add custom sorting (priority, due date, alphebetical)
+* [X] Add sorting (priority, due date, alphebetical, creation date)
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories (in reverse chronological order):
+
+With styling improvements, moved date picker to its own dialog fragment, pressing enter adds item, added checkboxes, and added sorting:
+
+<img src='gifs/optionals4.gif' title='Optional Features Demo' width='' alt='Optional Features Demo' />
 
 With priority support and using a DialogFragment for editing:
 

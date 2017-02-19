@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -26,9 +28,17 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements EditItemFragment.EditItemDialogListener {
+public class MainActivity extends AppCompatActivity implements EditItemFragment.EditItemDialogListener, Comparator<TodoItem> {
+
+    //sort constants
+    private final int SORT_CREATED = 0;
+    private final int SORT_PRIORITY = 1;
+    private final int SORT_DUE_DATE = 2;
+    private final int SORT_ALPHA = 3;
 
     //Request code for editing item
     private final int REQUEST_CODE = 20;
@@ -37,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements EditItemFragment.
     private TodoItemsAdapter aToDoAdapter;
     private ListView lvItems;
     private EditText etEditText;
+
+    private int sortOrder = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +138,9 @@ public class MainActivity extends AppCompatActivity implements EditItemFragment.
         TodoItem newItem = new TodoItem();
         newItem.setText(etEditText.getText().toString());
         aToDoAdapter.add(newItem);
-        lvItems.setSelection(aToDoAdapter.getCount() - 1);
+        Collections.sort(todoItems, this);
+        aToDoAdapter.notifyDataSetChanged();
+        lvItems.setSelection(todoItems.indexOf(newItem));
         etEditText.setText("");
         newItem.save();
     }
@@ -176,8 +190,72 @@ public class MainActivity extends AppCompatActivity implements EditItemFragment.
     @Override
     public void onSave(int position, TodoItem todoItem) {
         todoItems.set(position, todoItem);
+        Collections.sort(todoItems, this);
         aToDoAdapter.notifyDataSetChanged();
+        lvItems.setSelection(todoItems.indexOf(todoItem));
         todoItem.save();
+    }
+
+    /**
+     * Create custom top bar.
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sortPriority:
+                sortOrder = SORT_PRIORITY;
+                break;
+            case R.id.sortDueDate:
+                sortOrder = SORT_DUE_DATE;
+                break;
+            case R.id.sortAlpha:
+                sortOrder = SORT_ALPHA;
+                break;
+            case R.id.sortCreated:
+                sortOrder = SORT_CREATED;
+                break;
+        }
+        Collections.sort(todoItems, this);
+        aToDoAdapter.notifyDataSetChanged();
+        return true;
+    }
+
+    @Override
+    public int compare(TodoItem lhs, TodoItem rhs) {
+        switch (sortOrder) {
+            case SORT_PRIORITY:
+                if (lhs.getPriority().getValue() < rhs.getPriority().getValue()) {
+                    return -1;
+                } else if (lhs.getPriority().getValue() == rhs.getPriority().getValue()) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            case SORT_DUE_DATE:
+                if (lhs.getDueDate() != null && rhs.getDueDate() != null) {
+                    return lhs.getDueDate().compareTo(rhs.getDueDate());
+                } else if (lhs.getDueDate() != null) {
+                    return -1;
+                } else if (rhs.getDueDate() != null) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            case SORT_ALPHA:
+                return lhs.getText().compareTo(rhs.getText());
+            case SORT_CREATED:
+            default:
+                return lhs.getCreated().compareTo(rhs.getCreated());
+        }
     }
 
 }

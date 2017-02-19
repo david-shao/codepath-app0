@@ -47,11 +47,15 @@ public class TodoItem extends BaseModel implements Serializable {
     @Column
     private boolean completed;
 
+    @Column
+    private Date created;
+
     /**
      * Constructor.
      */
     public TodoItem() {
         priority = Priority.MEDIUM;
+        created = new Date();
     }
 
     /**
@@ -86,6 +90,12 @@ public class TodoItem extends BaseModel implements Serializable {
     }
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+    public Date getCreated() {
+        return created;
+    }
+    public void setCreated(Date created) {
+        //intentionally left empty
     }
 
     @Override
